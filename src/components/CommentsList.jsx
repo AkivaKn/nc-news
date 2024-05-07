@@ -66,7 +66,7 @@ export default function CommentsList({ article_id, user }) {
       {showSuccessMessage?<p>Your comment has been posted!</p>:null}
       <ul id="comments-list">
         {comments.map((comment) => {
-          return <CommentCard comment={comment} key={comment.comment_id} />;
+          return <CommentCard comment={comment} key={comment.comment_id} user={user} />;
         })}
         {isGetError ? <p>That didn't work. Please try again.</p> : null}
       </ul>
