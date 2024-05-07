@@ -53,10 +53,8 @@
 - ArticlesList (Profile)
 - ArticleBody
 
-2. currArticleId
-- ArticleCard (Home)
-- ArticleCard (Topic)
-- Article
+2. showComments
+- ArticleBody
 - CommentsList
 
 3. topicsList
@@ -101,3 +99,44 @@
 14. isLoadingTopics
 - TopicsList(Home)
 - TopicsList(Topic)
+
+15. articleVoteChange
+- ArticleBody
+
+16. isArticlePatchError
+- ArticleBody
+
+17. showPostComment
+- CommentsList
+
+18. commentInput
+- CommentsList
+
+19. isGetError
+- CommentsList
+
+20. isPostError
+- CommentsList
+
+21. commentVoteChange
+- CommentCard
+
+22. isCommentPatchError
+- CommentCard
+
+23. isArticleGetError
+- Article
+
+24. isGetTopicsError
+- App
+- TopicsList (home)
+- TopicsList (Topic)
+
+25. isGetArticlesError (Home)
+- ArticlesList
+
+25. isGetArticlesError (Topic)
+- ArticlesList
+
+26. showSuccessMessage
+- CommentsList
