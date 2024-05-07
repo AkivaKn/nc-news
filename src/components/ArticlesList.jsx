@@ -2,18 +2,24 @@ import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import getArticles, { getMoreArticles } from "../api";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router-dom";
 
 export default function ArticlesList() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasMore, setHasMore] = useState(true);
-    const [nextPageIndex,setNextPageIndex] = useState(2)
+    const [nextPageIndex, setNextPageIndex] = useState(2);
+    const [isGetArticlesError,setIsGetArticlesError] = useState(false)
 
-  useEffect(() => {
+    useEffect(() => {
+      setIsGetArticlesError(false)
     getArticles().then(({ data}) => {
         setArticles(data.articles);
         setIsLoading(false)
-    });
+    })
+        .catch(() => {
+          setIsGetArticlesError(true)
+      })
   }, []);
     
     const fetchMoreArticles = () => {
@@ -45,13 +51,17 @@ export default function ArticlesList() {
     >
             <ul id="articles-list">
        { articles.map((article) => {
-            return   <ArticleCard key={article.article_id} article={article} />
-            
+           return (
+               <Link to={`/articles/${article.article_id}`} key={article.article_id}>
+                   <ArticleCard  article={article} />
+                   </Link>
+           )
         })}
             </ul>
             </InfiniteScroll>
             {isLoading?<div className="loading-message"><i className="fa-solid fa-spinner fa-spin"></i><p>Loading</p></div>:null}
             </div>
+            {isGetArticlesError?<p>That didn't work. Please try again.</p>:null}
             </div>
     )
 }
