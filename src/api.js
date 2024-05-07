@@ -35,6 +35,9 @@ export function patchComment(comment_id,vote) {
   return axios.patch(`https://news-now.onrender.com/api/comments/${comment_id}`,{inc_votes:vote})
 }
 
+export function deleteComment(comment_id) {
+  return axios.delete(`https://news-now.onrender.com/api/comments/${comment_id}`)
+}
 
 export function getTopics() {
   return axios.get("https://news-now.onrender.com/api/topics");
