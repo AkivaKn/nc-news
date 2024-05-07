@@ -85,3 +85,19 @@
 
 10. userComments
 - CommentsList (Profile)
+
+11. isLoading
+- ArticlesList(Home)
+- ArticlesList(Topic)
+
+12. hasMore
+- ArticlesList(Home)
+- ArticlesList(Topic)
+
+13. nextPageIndex
+- ArticlesList(Home)
+- ArticlesList(Topic)
+
+14. isLoadingTopics
+- TopicsList(Home)
+- TopicsList(Topic)
