@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import TopicsList from "./TopicsList";
-import TopicArticlesList from "./TopicArticlesList";
+import ArticlesList from "./ArticlesList";
 
 
 export default function Topic({ topicsList, isLoadingTopics, isGetTopicsError }) {
@@ -8,7 +8,7 @@ export default function Topic({ topicsList, isLoadingTopics, isGetTopicsError })
     return (
         <div id="topic-page">
             <TopicsList    topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />
-            <TopicArticlesList current_topic={current_topic} />
+            <ArticlesList current_topic={current_topic} />
             </div>
     )
 }

@@ -1,20 +1,23 @@
 import axios from "axios";
 
-export default function getArticles(currentTopic) {
+export default function getArticles(currentTopic,sort_by,order) {
   return axios.get("https://news-now.onrender.com/api/articles", {
     params: {
-      topic:currentTopic
+      topic: currentTopic,
+      sort_by: sort_by,
+      order:order
     }
   });
 }
 
-export function getMoreArticles(pageIndex,currentTopic) {
+export function getMoreArticles(pageIndex,currentTopic,sort_by,order) {
   return axios.get("https://news-now.onrender.com/api/articles", {
     params: {
       p: pageIndex,
       limit: 10,
-      topic:currentTopic
-
+      topic: currentTopic,
+      sort_by: sort_by,
+      order:order
     },
   });
 }

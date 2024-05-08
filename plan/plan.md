@@ -155,3 +155,6 @@
 
 31. nextPageIndex (CommentsList)
 - CommentsList
+
+32. isLoading
+- Article
