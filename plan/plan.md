@@ -84,11 +84,11 @@
 10. userComments
 - CommentsList (Profile)
 
-11. isLoading
+11. isLoading (ArticlesList)
 - ArticlesList(Home)
 - ArticlesList(Topic)
 
-12. hasMore
+12. hasMore (ArticlesList)
 - ArticlesList(Home)
 - ArticlesList(Topic)
 
@@ -133,10 +133,25 @@
 - TopicsList (Topic)
 
 25. isGetArticlesError (Home)
-- ArticlesList
+- ArticlesList (Home)
 
 25. isGetArticlesError (Topic)
-- ArticlesList
+- ArticlesList (Topic)
 
 26. showSuccessMessage
+- CommentsList
+
+27. isCommentDeleted
+- CommentCard
+
+28. isCommentDeleteError
+- CommentCard
+
+29. isLoading (CommentsList)
+- CommentsList
+
+30. hasMore (CommentsList)
+- CommentsList
+
+31. nextPageIndex (CommentsList)
 - CommentsList

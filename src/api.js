@@ -19,8 +19,16 @@ export function getArticleById(article_id) {
 }
 
 export function getCommentsByArticleId(article_id) {
-  return axios.get(`https://news-now.onrender.com/api/articles/${article_id}/comments`);
-    
+  return axios.get(`https://news-now.onrender.com/api/articles/${article_id}/comments`); 
+}
+
+export function getMoreCommentsByArticleId(article_id,pageIndex) {
+  return axios.get(`https://news-now.onrender.com/api/articles/${article_id}/comments`, {
+    params: {
+      p: pageIndex,
+      limit: 10,
+    },
+  });
 }
 
 export function postComment(article_id,comment) {
