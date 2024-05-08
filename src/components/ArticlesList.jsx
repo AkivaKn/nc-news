@@ -12,7 +12,8 @@ export default function ArticlesList() {
     const [isGetArticlesError,setIsGetArticlesError] = useState(false)
 
     useEffect(() => {
-      setIsGetArticlesError(false)
+        setIsLoading(true);
+        setIsGetArticlesError(false);
     getArticles().then(({ data}) => {
         setArticles(data.articles);
         setIsLoading(false)
