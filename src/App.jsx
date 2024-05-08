@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { getTopics } from './api';
 import Article from './components/Article';
 import Topic from './components/Topic';
+import NotFound from './components/NotFound';
 
 
 function App() {
@@ -31,7 +32,9 @@ function App() {
     <Routes>
         <Route path='/' element={<Home topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
         <Route path='/topics/:current_topic' element={<Topic topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
-        <Route path='/articles/:article_id' element={<Article user={user} />}/>
+        <Route path='/articles/:article_id' element={<Article user={user} />} />
+        <Route path='/not-found' element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       </>
   )

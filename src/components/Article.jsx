@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import ArticleBody from "./ArticleBody";
 import CommentsList from "./CommentsList";
-import { useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { getArticleById } from "../api";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Article({ user }) {
   const [currentArticle, setCurrentArticle] = useState({});
   const [showComments, setShowComments] = useState(false);
   const [isArticleGetError, setIsArticleGetError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   let { article_id } = useParams();
   useEffect(() => {
@@ -19,8 +22,11 @@ export default function Article({ user }) {
         setIsLoading(false);
       })
       .catch((err) => {
+        if (err.response.status === 404) {
+         navigate('/not-found')
+       }
         setIsArticleGetError(true);
-        console.log(err);
+        setIsLoading(false)
       });
   }, []);
   return (
