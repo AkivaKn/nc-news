@@ -3,6 +3,7 @@ import ArticleCard from "./ArticleCard";
 import getArticles, { getMoreArticles } from "../api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function TopicArticlesList({ current_topic }) {
   const [articles, setArticles] = useState([]);
@@ -10,9 +11,10 @@ export default function TopicArticlesList({ current_topic }) {
   const [hasMore, setHasMore] = useState(true);
   const [nextPageIndex, setNextPageIndex] = useState(2);
   const [isGetArticlesError, setIsGetArticlesError] = useState(false);
-    const [sortBy, setSortBy] = useState('created_at');
-    const [order,setOrder] = useState('desc')
-    
+  const [sortBy, setSortBy] = useState("created_at");
+  const [order, setOrder] = useState("desc");
+  const navigate = useNavigate();
+
   useEffect(() => {
     setIsGetArticlesError(false);
     getArticles(current_topic, sortBy, order)
@@ -23,9 +25,13 @@ export default function TopicArticlesList({ current_topic }) {
         setNextPageIndex(2);
       })
       .catch((err) => {
-          setIsGetArticlesError(true);
+        setIsGetArticlesError(true);
+        setIsLoading(false);
+        if (err.response.data.msg === "Topic not found") {
+         navigate('/not-found')
+        }
       });
-  }, [current_topic,sortBy,order]);
+  }, [current_topic, sortBy, order]);
 
   const fetchMoreArticles = () => {
     setIsLoading(true);
@@ -37,8 +43,9 @@ export default function TopicArticlesList({ current_topic }) {
         setIsLoading(false);
         res.data.articles.length === 10 ? setHasMore(true) : setHasMore(false);
       })
-      .catch(() => {
+      .catch((err) => {
         setHasMore(false);
+        setIsLoading(false);
       });
 
     setNextPageIndex((currIndex) => {
@@ -46,11 +53,11 @@ export default function TopicArticlesList({ current_topic }) {
     });
   };
 
-    const handleChange = (e) => {
-        const params = e.target.value.split(' ');
-        setSortBy(params[0])
-        setOrder(params[1])
-    }
+  const handleChange = (e) => {
+    const params = e.target.value.split(" ");
+    setSortBy(params[0]);
+    setOrder(params[1]);
+  };
 
   return (
     <div id="articles-section">
@@ -59,15 +66,15 @@ export default function TopicArticlesList({ current_topic }) {
       </h2>
       <div>
         <div>
-                  <label htmlFor="sort-by">Sort</label>
-                  <select name="sort-by" id="sort-by" onChange={handleChange}>
-                      <option value="created_at desc">Date descending</option>
-                      <option value="created_at asc">Date ascending</option>
-                      <option value="votes desc">Votes descending</option>
-                      <option value="votes asc">Votes ascending</option>
-                      <option value="comment_count desc">Comments descending</option>
-                      <option value="comment_count asc">Comments ascending</option>
-                  </select>
+          <label htmlFor="sort-by">Sort</label>
+          <select name="sort-by" id="sort-by" onChange={handleChange}>
+            <option value="created_at desc">Date descending</option>
+            <option value="created_at asc">Date ascending</option>
+            <option value="votes desc">Votes descending</option>
+            <option value="votes asc">Votes ascending</option>
+            <option value="comment_count desc">Comments descending</option>
+            <option value="comment_count asc">Comments ascending</option>
+          </select>
         </div>
         <InfiniteScroll
           dataLength={articles.length}
