@@ -7,7 +7,7 @@ import { getArticleById } from "../api";
 export default function Article({user}) {
     const [currentArticle, setCurrentArticle] = useState({});
   const [showComments, setShowComments] = useState(false);
-  const [isArticleGetError,setIsArticleGetError] = useState(false)
+  const [isArticleGetError, setIsArticleGetError] = useState(false);
     
   let { article_id } = useParams();
   useEffect(() => {
@@ -15,8 +15,9 @@ export default function Article({user}) {
     getArticleById(article_id).then(({ data: { article } }) => {
       setCurrentArticle(article);
     })
-      .catch(() => {
-      setIsArticleGetError(true)
+      .catch((err) => {
+        setIsArticleGetError(true)
+        console.log(err);
     })
   }, []);
   return (

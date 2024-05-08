@@ -10,7 +10,7 @@ export default function TopicsList({ topicsList,isLoadingTopics ,isGetTopicsErro
 {isGetTopicsError?<p>That didn't work. Please refresh the page.</p>:null}
       <ul>
         {topicsList.map((topic) => {
-          return <Link to={`/articles/${topic.slug}`} key={topic.slug}><li >{topic.slug}</li></Link>;
+          return <Link to={`/topics/${topic.slug}`} key={topic.slug}><li >{topic.slug}</li></Link>;
         })}
       </ul>
     </StyledTopicsList>
