@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
-import { getCommentsByArticleId, postComment } from "../api";
+import { getCommentsByArticleId, getMoreCommentsByArticleId, postComment } from "../api";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 
 export default function CommentsList({ article_id, user }) {
   const [comments, setComments] = useState([]);
@@ -8,7 +10,10 @@ export default function CommentsList({ article_id, user }) {
   const [commentInput, setCommentInput] = useState("");
   const [isGetError, setIsGetError] = useState(false);
   const [isPostError, setIsPostError] = useState(false);
-  const [showSuccessMessage,setShowSuccessMessage] = useState(false)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [nextPageIndex, setNextPageIndex] = useState(2);
 
   const handleClick = () => {
     setShowPostComment(!showPostComment);
@@ -47,11 +52,29 @@ export default function CommentsList({ article_id, user }) {
       .then(({ data: { comments } }) => {
         setComments(comments);
         setIsGetError(false);
+        setIsLoading(false)
       })
       .catch(() => {
         setIsGetError(true);
       });
   }, [isPostError]);
+
+  const fetchMoreComments = () => {
+    setIsLoading(true)
+    getMoreCommentsByArticleId(article_id,nextPageIndex)
+        .then((res) => {
+            setComments((currComments) => {
+                return [...currComments,...res.data.comments]
+            })
+            setIsLoading(false)
+            res.data.comments.length === 10 ? setHasMore(true) : setHasMore(false);
+        })
+        
+    setNextPageIndex((currIndex) => {
+        return currIndex + 1
+    })
+}  
+
   return (
     <>
       <button onClick={handleClick}>Add comment</button>
@@ -63,13 +86,23 @@ export default function CommentsList({ article_id, user }) {
           {isPostError ? <p>That didn't work. Please try again.</p> : null}
         </form>
       ) : null}
-      {showSuccessMessage?<p>Your comment has been posted!</p>:null}
+      {showSuccessMessage ? <p>Your comment has been posted!</p> : null}
+      <InfiniteScroll
+      dataLength={comments.length}
+      next={fetchMoreComments}
+      hasMore={hasMore} 
+      endMessage={<p>No more comments to load.</p>}
+    >
       <ul id="comments-list">
         {comments.map((comment) => {
           return <CommentCard comment={comment} key={comment.comment_id} user={user} />;
         })}
         {isGetError ? <p>That didn't work. Please try again.</p> : null}
-      </ul>
+        </ul>
+        </InfiniteScroll>
+        
+      {isLoading?<div className="loading-message"><i className="fa-solid fa-spinner fa-spin"></i><p>Loading</p></div>:null}
+
     </>
   );
 }
