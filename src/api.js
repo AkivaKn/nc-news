@@ -1,14 +1,20 @@
 import axios from "axios";
 
-export default function getArticles() {
-  return axios.get("https://news-now.onrender.com/api/articles");
+export default function getArticles(currentTopic) {
+  return axios.get("https://news-now.onrender.com/api/articles", {
+    params: {
+      topic:currentTopic
+    }
+  });
 }
 
-export function getMoreArticles(pageIndex) {
+export function getMoreArticles(pageIndex,currentTopic) {
   return axios.get("https://news-now.onrender.com/api/articles", {
     params: {
       p: pageIndex,
       limit: 10,
+      topic:currentTopic
+
     },
   });
 }

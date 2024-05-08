@@ -5,6 +5,7 @@ import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import { getTopics } from './api';
 import Article from './components/Article';
+import Topic from './components/Topic';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
     <Header/>
     <Routes>
         <Route path='/' element={<Home topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
+        <Route path='/articles/:current_topic' element={<Topic topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
         <Route path='/articles/:article_id' element={<Article user={user} />}/>
       </Routes>
       </>
