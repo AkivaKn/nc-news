@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ArticleBody from "./ArticleBody";
 import CommentsList from "./CommentsList";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getArticleById } from "../api";
 import { useNavigate } from "react-router-dom";
 import StyledArticlePage from "../styling-components/StyledArticlePage";

@@ -54,8 +54,8 @@
 - ArticleBody
 
 2. showComments
+- Article
 - ArticleBody
-- CommentsList
 
 3. topicsList
 - TopicsList (Home)
@@ -71,6 +71,7 @@
 
 6. currArticle
 - Article Body
+- Article
 
 7. commentsList
 - CommentsList
@@ -160,4 +161,19 @@
 - Article
 
 33. sortBy
-- 
+- ArticlesList
+
+34. order
+- ArticlesList
+
+35. isPosting
+- CommentsList
+
+36. isUndoError
+- CommentCard
+
+37. isDeleting
+- CommentCard
+
+38. commentToPost
+- CommentCard

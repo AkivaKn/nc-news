@@ -16,32 +16,44 @@ export default function CommentsList({ article_id, user }) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [nextPageIndex, setNextPageIndex] = useState(2);
+  const [isPosting,setIsPosting] = useState(false)
 
   const handleClick = () => {
     setShowPostComment(!showPostComment);
   };
-
   const handleSubmit = (e) => {
+    setIsPostError(false);
     e.preventDefault();
+    e.target.disabled = true;
+    setIsPosting(true);
+
     if (!commentInput) {
-      return
+      setIsPosting(false);
+      return;
     }
-    setCommentInput("")
-    setShowSuccessMessage(true)
     let comment = {
       username: user,
       body: commentInput
     };
-    setComments((currentComments) => {
-      return [{...comment,created_at: Date.now(),votes:0,comment_id:'a',author:user}, ...currentComments];
-    });
     postComment(article_id, comment)
       .then((res) => {
+        setIsPosting(false);
         setIsPostError(false);
+        setCommentInput("");
+        setShowSuccessMessage(true);
+        setComments((currentComments) => {
+          return [res.data.comment,...currentComments];
+        });
+        e.target.disabled = false;
+        setTimeout(() => {
+          setShowSuccessMessage(false)
+        }, 5000);
       })
       .catch(() => {
+        setIsPosting(false)
         setIsPostError(true);
-        setShowSuccessMessage(false)
+        setShowSuccessMessage(false);
+        e.target.disabled = false;
       });
   };
 
@@ -90,7 +102,7 @@ export default function CommentsList({ article_id, user }) {
           
             <button type="submit">Post comment</button>
       </StyledButton>
-            
+            {isPosting?<div className="posting-message"><i className="fa-solid fa-spinner fa-spin"></i><p>Posting</p></div>:null}
           {isPostError ? <p>That didn't work. Please try again.</p> : null}
         </form>
       ) : null}
@@ -103,7 +115,7 @@ export default function CommentsList({ article_id, user }) {
     >
       <ul id="comments-list">
         {comments.map((comment) => {
-          return <StyledComment key={comment.comment_id}><CommentCard comment={comment}  user={user} /></StyledComment>;
+          return <StyledComment key={comment.comment_id}><CommentCard article_id={article_id} comment={comment}  user={user} /></StyledComment>;
         })}
         {isGetError ? <p>That didn't work. Please try again.</p> : null}
         </ul>

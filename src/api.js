@@ -23,7 +23,6 @@ export function getMoreArticles(pageIndex,currentTopic,sort_by,order) {
 }
 
 export function getArticleById(article_id) {
-  console.log(article_id);
   return axios.get(`https://news-now.onrender.com/api/articles/${article_id}`);
     
 }
