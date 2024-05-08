@@ -1,4 +1,6 @@
 import StyledTopicsList from "../styling-components/StyledTopicsList";
+import { Link } from "react-router-dom";
+
 
 export default function TopicsList({ topicsList,isLoadingTopics ,isGetTopicsError}) {
   return (
@@ -8,7 +10,7 @@ export default function TopicsList({ topicsList,isLoadingTopics ,isGetTopicsErro
 {isGetTopicsError?<p>That didn't work. Please refresh the page.</p>:null}
       <ul>
         {topicsList.map((topic) => {
-          return <li key={topic.slug}>{topic.slug}</li>;
+          return <Link to={`/articles/${topic.slug}`} key={topic.slug}><li >{topic.slug}</li></Link>;
         })}
       </ul>
     </StyledTopicsList>
