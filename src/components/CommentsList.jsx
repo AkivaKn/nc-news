@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 import { getCommentsByArticleId, getMoreCommentsByArticleId, postComment } from "../api";
 import InfiniteScroll from "react-infinite-scroll-component";
+import StyledButton from "../styling-components/StyledButton";
+import StyledComment from "../styling-components/StyledComment";
 
 
 export default function CommentsList({ article_id, user }) {
@@ -77,12 +79,18 @@ export default function CommentsList({ article_id, user }) {
 
   return (
     <>
-      <button onClick={handleClick}>Add comment</button>
+      <StyledButton>
+        <button onClick={handleClick}>Add comment</button>
+        </StyledButton>
       {showPostComment ? (
         <form onSubmit={handleSubmit}>
           <label htmlFor="comment-body">Comment:</label>
-          <input type="text" id="comment-body" onChange={handleChange} value={commentInput}/>
-          <button type="submit">Post comment</button>
+          <input type="text" id="comment-body" onChange={handleChange} value={commentInput} />
+      <StyledButton>
+          
+            <button type="submit">Post comment</button>
+      </StyledButton>
+            
           {isPostError ? <p>That didn't work. Please try again.</p> : null}
         </form>
       ) : null}
@@ -95,7 +103,7 @@ export default function CommentsList({ article_id, user }) {
     >
       <ul id="comments-list">
         {comments.map((comment) => {
-          return <CommentCard comment={comment} key={comment.comment_id} user={user} />;
+          return <StyledComment key={comment.comment_id}><CommentCard comment={comment}  user={user} /></StyledComment>;
         })}
         {isGetError ? <p>That didn't work. Please try again.</p> : null}
         </ul>

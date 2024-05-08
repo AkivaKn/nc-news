@@ -60,12 +60,11 @@ export default function TopicArticlesList({ current_topic }) {
   };
 
   return (
-    <div id="articles-section">
-      <h2 id="articles-header">
-        Articles{current_topic ? ` about ${current_topic}` : null}
-      </h2>
-      <div>
-        <div>
+    < >
+      
+      <div id="articles-section">
+
+        <div id="sort-by-select">
           <label htmlFor="sort-by">Sort</label>
           <select name="sort-by" id="sort-by" onChange={handleChange}>
             <option value="created_at desc">Date descending</option>
@@ -76,6 +75,7 @@ export default function TopicArticlesList({ current_topic }) {
             <option value="comment_count asc">Comments ascending</option>
           </select>
         </div>
+    
         <InfiniteScroll
           dataLength={articles.length}
           next={fetchMoreArticles}
@@ -103,6 +103,6 @@ export default function TopicArticlesList({ current_topic }) {
         ) : null}
       </div>
       {isGetArticlesError ? <p>That didn't work. Please try again.</p> : null}
-    </div>
+    </>
   );
 }

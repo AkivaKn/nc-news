@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { deleteComment } from "../api";
+import StyledButton from "../styling-components/StyledButton";
+import StyledVotes from "../styling-components/StyledVotes";
 
 export default function CommentCard({ comment, user }) {
   const [commentVoteChange, setCommentVoteChange] = useState(0);
@@ -35,30 +37,37 @@ export default function CommentCard({ comment, user }) {
   return !isCommentDeleted ? (
     <li>
       <h3>
-        {comment.author}/{new Date(comment.created_at).toDateString()}
+        {comment.author}/ {new Date(comment.created_at).toDateString()}
       </h3>
       <p>{comment.body}</p>
-      <div className="votes">
+      <StyledVotes>
+        <StyledButton>
         <button
           disabled={commentVoteChange === 1}
           onClick={() => handleVote(1)}
         >
           +
-        </button>
+          </button>
+          </StyledButton>
         <p>{comment.votes + commentVoteChange}</p>
+        <StyledButton>
         <button
           disabled={commentVoteChange === -1}
           onClick={() => handleVote(-1)}
         >
           -
         </button>
+        </StyledButton>
         {isCommentPatchError ? (
           <p>That didn't work. Please try again.</p>
         ) : null}
-      </div>
+      </StyledVotes>
+      
       {isCommentDeleteError ? <p>That didn't work. Please try again.</p> : null}
       {user === comment.author ? (
+        <StyledButton>
         <button onClick={handleClick}>Delete</button>
+        </StyledButton>
       ) : null}
     </li>
   ) : (

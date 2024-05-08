@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { patchArticle } from "../api";
+import StyledVotes from "../styling-components/StyledVotes";
+import StyledButton from "../styling-components/StyledButton";
 
 export default function ArticleBody({
   currentArticle,
@@ -31,19 +33,25 @@ export default function ArticleBody({
   return (
     <div id="article-body">
       <p>{currentArticle.body}</p>
-      <div className="votes">
+      <StyledVotes>
+      <StyledButton>
         <button disabled={articleVoteChange === 1} onClick={() => handleVote(1)}>
           +
-        </button>
+          </button>
+          </StyledButton>
         <p>{currentArticle.votes + articleVoteChange}</p>
+        <StyledButton>
         <button disabled={articleVoteChange === -1} onClick={() => handleVote(-1)}>
           -
         </button>
+        </StyledButton>
         {isArticlePatchError ? <p>That didn't work. Please try again.</p> : null}
-      </div>
+      </StyledVotes>
+      <StyledButton>
       <button onClick={handleClick}>
         {showComments ? "Hide" : "Show"} {currentArticle.comment_count} comments
-      </button>
+        </button>
+        </StyledButton>
     </div>
   );
 }
