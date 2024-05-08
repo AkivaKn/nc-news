@@ -4,6 +4,7 @@ import CommentsList from "./CommentsList";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { getArticleById } from "../api";
 import { useNavigate } from "react-router-dom";
+import StyledArticlePage from "../styling-components/StyledArticlePage";
 
 
 export default function Article({ user }) {
@@ -30,7 +31,7 @@ export default function Article({ user }) {
       });
   }, []);
   return (
-    <>
+    <StyledArticlePage>
       {isLoading ? (
         <div className="loading-message">
           <i className="fa-solid fa-spinner fa-spin"></i>
@@ -42,16 +43,16 @@ export default function Article({ user }) {
         <p>That didn't work. Please refresh the page.</p>
       ) : null}
       <h2>{currentArticle.title}</h2>
+      <p>
+        {currentArticle.author}/ 
+        {new Date(currentArticle.created_at).toDateString()}
+      </p>
       <h3>{currentArticle.topic}</h3>
       <img
         src={currentArticle.article_img_url}
         alt="article image"
         height="200px"
       />
-      <p>
-        {currentArticle.author}/
-        {new Date(currentArticle.created_at).toDateString()}
-      </p>
       <ArticleBody
         currentArticle={currentArticle}
         setShowComments={setShowComments}
@@ -61,6 +62,6 @@ export default function Article({ user }) {
       {showComments ? (
         <CommentsList article_id={article_id} user={user} />
       ) : null}
-    </>
+    </StyledArticlePage>
   );
 }
