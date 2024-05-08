@@ -30,7 +30,7 @@ function App() {
     <Header/>
     <Routes>
         <Route path='/' element={<Home topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
-        <Route path='/articles/:current_topic' element={<Topic topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
+        <Route path='/topics/:current_topic' element={<Topic topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
         <Route path='/articles/:article_id' element={<Article user={user} />}/>
       </Routes>
       </>
