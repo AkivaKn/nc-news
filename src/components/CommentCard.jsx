@@ -2,15 +2,19 @@ import { useState } from "react";
 import { deleteComment, postComment } from "../api";
 import StyledButton from "../styling-components/StyledButton";
 import StyledVotes from "../styling-components/StyledVotes";
+import { useContext } from "react";
+import { UserContext } from "../contexts/User";
 
-export default function CommentCard({ comment, user, article_id }) {
+export default function CommentCard({ comment, article_id }) {
   const [commentVoteChange, setCommentVoteChange] = useState(0);
   const [isCommentPatchError, setIsCommentPatchError] = useState(false);
   const [isCommentDeleted, setIsCommentDeleted] = useState(false);
   const [isCommentDeleteError, setIsCommentDeleteError] = useState(false);
   const [isUndoError, setIsUndoError] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [commentToPost,setCommentToPost] = useState(comment)
+  const [commentToPost, setCommentToPost] = useState(comment);
+  const { user} = useContext(UserContext);
+
 
   const handleVote = (vote) => {
     setCommentVoteChange((currentVote) => {
@@ -91,7 +95,7 @@ export default function CommentCard({ comment, user, article_id }) {
       </StyledVotes>
 
       {isCommentDeleteError ? <p>That didn't work. Please try again.</p> : null}
-      {user === commentToPost.author ? (
+      {user && user.username === commentToPost.author ? (
         <>
         <StyledButton>
           <button onClick={handleClick}>Delete</button>

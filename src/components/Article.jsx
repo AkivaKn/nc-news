@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import StyledArticlePage from "../styling-components/StyledArticlePage";
 
 
-export default function Article({ user }) {
+export default function Article() {
   const [currentArticle, setCurrentArticle] = useState({});
   const [showComments, setShowComments] = useState(false);
   const [isArticleGetError, setIsArticleGetError] = useState(false);
@@ -60,7 +60,7 @@ export default function Article({ user }) {
       />
 
       {showComments ? (
-        <CommentsList article_id={article_id} user={user} />
+        <CommentsList article_id={article_id} />
       ) : null}
     </StyledArticlePage>
   );

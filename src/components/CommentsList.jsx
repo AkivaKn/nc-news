@@ -4,9 +4,13 @@ import { getCommentsByArticleId, getMoreCommentsByArticleId, postComment } from 
 import InfiniteScroll from "react-infinite-scroll-component";
 import StyledButton from "../styling-components/StyledButton";
 import StyledComment from "../styling-components/StyledComment";
+import { useContext } from "react";
+import { UserContext } from "../contexts/User";
+import { useNavigate } from "react-router-dom";
 
 
-export default function CommentsList({ article_id, user }) {
+
+export default function CommentsList({ article_id}) {
   const [comments, setComments] = useState([]);
   const [showPostComment, setShowPostComment] = useState(false);
   const [commentInput, setCommentInput] = useState("");
@@ -16,10 +20,17 @@ export default function CommentsList({ article_id, user }) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [nextPageIndex, setNextPageIndex] = useState(2);
-  const [isPosting,setIsPosting] = useState(false)
+  const [isPosting, setIsPosting] = useState(false);
+  const { user} = useContext(UserContext);
+  const navigate = useNavigate();
+
 
   const handleClick = () => {
-    setShowPostComment(!showPostComment);
+    if (user) {
+      setShowPostComment(!showPostComment);
+    } else {
+      navigate('/login')
+    }
   };
   const handleSubmit = (e) => {
     setIsPostError(false);
@@ -32,7 +43,7 @@ export default function CommentsList({ article_id, user }) {
       return;
     }
     let comment = {
-      username: user,
+      username: user.username,
       body: commentInput
     };
     postComment(article_id, comment)
@@ -115,7 +126,7 @@ export default function CommentsList({ article_id, user }) {
     >
       <ul id="comments-list">
         {comments.map((comment) => {
-          return <StyledComment key={comment.comment_id}><CommentCard article_id={article_id} comment={comment}  user={user} /></StyledComment>;
+          return <StyledComment key={comment.comment_id}><CommentCard article_id={article_id} comment={comment} /></StyledComment>;
         })}
         {isGetError ? <p>That didn't work. Please try again.</p> : null}
         </ul>

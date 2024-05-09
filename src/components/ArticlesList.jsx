@@ -4,6 +4,8 @@ import getArticles, { getMoreArticles } from "../api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from 'react-router-dom';
+
 
 export default function TopicArticlesList({ current_topic }) {
   const [articles, setArticles] = useState([]);
@@ -11,13 +13,26 @@ export default function TopicArticlesList({ current_topic }) {
   const [hasMore, setHasMore] = useState(true);
   const [nextPageIndex, setNextPageIndex] = useState(2);
   const [isGetArticlesError, setIsGetArticlesError] = useState(false);
-  const [sortBy, setSortBy] = useState("created_at");
-  const [order, setOrder] = useState("desc");
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortByQuery = searchParams.get('sort_by');
+  const orderQuery = searchParams.get('order');
+
+  const setSortOrder = (direction) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('order', direction);
+    setSearchParams(newParams);
+  };
+
+  const setSortBy = (sortBy) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('sort_by', sortBy);
+    setSearchParams(newParams);
+  }
 
   useEffect(() => {
     setIsGetArticlesError(false);
-    getArticles(current_topic, sortBy, order)
+    getArticles(current_topic, sortByQuery, orderQuery)
       .then(({ data }) => {
         setArticles(data.articles);
         setIsLoading(false);
@@ -31,11 +46,11 @@ export default function TopicArticlesList({ current_topic }) {
          navigate('/not-found')
         }
       });
-  }, [current_topic, sortBy, order]);
+  }, [current_topic, sortByQuery, orderQuery]);
 
   const fetchMoreArticles = () => {
     setIsLoading(true);
-    getMoreArticles(nextPageIndex, current_topic, sortBy, order)
+    getMoreArticles(nextPageIndex, current_topic, sortByQuery, orderQuery)
       .then((res) => {
         setArticles((currArticles) => {
           return [...currArticles, ...res.data.articles];
@@ -54,9 +69,12 @@ export default function TopicArticlesList({ current_topic }) {
   };
 
   const handleChange = (e) => {
+    if (e.target.value === '') {
+      return
+    }
     const params = e.target.value.split(" ");
     setSortBy(params[0]);
-    setOrder(params[1]);
+    setSortOrder(params[1]);
   };
 
   return (
@@ -67,6 +85,7 @@ export default function TopicArticlesList({ current_topic }) {
         <div id="sort-by-select">
           <label htmlFor="sort-by">Sort</label>
           <select name="sort-by" id="sort-by" onChange={handleChange}>
+            <option value=''>- - - sort</option>
             <option value="created_at desc">Date descending</option>
             <option value="created_at asc">Date ascending</option>
             <option value="votes desc">Votes descending</option>
