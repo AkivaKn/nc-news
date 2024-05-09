@@ -77,7 +77,8 @@ export default function CommentsList({ article_id}) {
       .then(({ data: { comments } }) => {
         setComments(comments);
         setIsGetError(false);
-        setIsLoading(false)
+        setIsLoading(false);
+        comments.length === 10 ? setHasMore(true) : setHasMore(false);
       })
       .catch(() => {
         setIsGetError(true);

@@ -6,6 +6,7 @@ A Reddit style news site using an Express.js API (https://github.com/AkivaKn/be-
 
 - git clone https://github.com/AkivaKn/nc-news.git
 - cd nc-news
+- npm install
 - npm run dev
 
 Node.js v21.6.2 or above is required to run this repo.

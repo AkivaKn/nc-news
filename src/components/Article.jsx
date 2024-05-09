@@ -24,24 +24,29 @@ export default function Article() {
       })
       .catch((err) => {
         if (err.response.status === 404) {
-         navigate('/not-found')
-       }
+          navigate('/not-found')
+        }
         setIsArticleGetError(true);
         setIsLoading(false)
       });
   }, []);
   return (
-    <StyledArticlePage>
-      {isLoading ? (
-        <div className="loading-message">
+    
+      isLoading?(
+        <div className = "loading-message" >
           <i className="fa-solid fa-spinner fa-spin"></i>
           <p>Loading</p>
         </div>
-      ) : null}
+      ) :
 
-      {isArticleGetError ? (
+  (
+    <StyledArticlePage>
+  
+        {isArticleGetError ? (
         <p>That didn't work. Please refresh the page.</p>
-      ) : null}
+  ) : null
+}
+      <>
       <h2>{currentArticle.title}</h2>
       <p>
         {currentArticle.author}/ 
@@ -61,7 +66,12 @@ export default function Article() {
 
       {showComments ? (
         <CommentsList article_id={article_id} />
-      ) : null}
+) : null
+        }
+      </>
     </StyledArticlePage>
+
+      )
+
   );
 }
