@@ -5,7 +5,10 @@ export default function Header() {
         <header>
             <Link to={'/'} >
                 < h1 > NC News</h1 >
-                </Link>
+            </Link>
+            <Link to={'/profile'}>
+            <i className="fa-regular fa-user"></i>
+            </Link>
             </header>
     )
         

@@ -7,6 +7,9 @@ import { getTopics } from './api';
 import Article from './components/Article';
 import Topic from './components/Topic';
 import NotFound from './components/NotFound';
+import { UserProvider } from './contexts/User';
+import Login from './components/Login';
+import Profile from './components/Profile';
 
 
 function App() {
@@ -27,16 +30,18 @@ function App() {
 },[])
 
   return (
-    <>
+    <UserProvider>
     <Header/>
     <Routes>
         <Route path='/' element={<Home topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
         <Route path='/topics/:current_topic' element={<Topic topicsList={topicsList} isLoadingTopics={isLoadingTopics} isGetTopicsError={isGetTopicsError} />} />
-        <Route path='/articles/:article_id' element={<Article user={user} />} />
+        <Route path='/articles/:article_id' element={<Article />} />
         <Route path='/not-found' element={<NotFound />} />
         <Route path='*' element={<NotFound />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/profile' element={<Profile/>}/>
       </Routes>
-      </>
+      </UserProvider>
   )
     
 }

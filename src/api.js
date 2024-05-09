@@ -59,3 +59,23 @@ export function deleteComment(comment_id) {
 export function getTopics() {
   return axios.get("https://news-now.onrender.com/api/topics");
 }
+
+export function getUserByUsername(username) {
+  return axios.get(`https://news-now.onrender.com/api/users/${username}`);
+
+}
+
+export function getCommentsByUsername(username) {
+
+  return axios.get(`https://news-now.onrender.com/api/users/${username}/comments`);
+  
+}
+
+export function getMoreCommentsByUsername(username,pageIndex) {
+  return axios.get(`https://news-now.onrender.com/api/articles/${username}/comments`, {
+    params: {
+      p: pageIndex,
+      limit: 10,
+    },
+  });
+}
