@@ -65,7 +65,7 @@ export default function Article() {
       />
 
       {showComments ? (
-        <CommentsList article_id={article_id} />
+        <CommentsList article_id={article_id}/>
 ) : null
         }
       </>
