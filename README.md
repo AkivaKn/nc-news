@@ -1,8 +1,11 @@
-# React + Vite
+# NC News
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Deployed version: https://clever-florentine-559ede.netlify.app/
 
-Currently, two official plugins are available:
+A Reddit style news site using an Express.js API (https://github.com/AkivaKn/be-nc-news) and a Frontend built using React. To run the app locally run the following commands in your terminal:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- git clone https://github.com/AkivaKn/nc-news.git
+- cd nc-news
+- npm run dev
+
+Node.js v21.6.2 or above is required to run this repo.
