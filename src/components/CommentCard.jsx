@@ -18,6 +18,24 @@ export default function CommentCard({ comment }) {
   const [articleId, setArticleId] = useState(comment.article_id);
   const navigate = useNavigate();
 
+  const currentTime = Date.now();
+  const createdDate = new Date(comment.created_at);
+  const createdUnix = createdDate.getTime();
+  const numOfMinutesSincePosted = Math.floor(
+    (currentTime - createdUnix) / 60000
+  );
+  const numOfHoursSincePosted = Math.floor(
+    (currentTime - createdUnix) / 3600000
+  );
+  let posted;
+  if (numOfMinutesSincePosted < 60) {
+    posted = `${numOfMinutesSincePosted} minutes ago`;
+  } else if (numOfHoursSincePosted <= 24) {
+    posted = `${numOfHoursSincePosted} hours ago`;
+  } else {
+    posted = new Date(comment.created_at).toDateString();
+  }
+
   const handleVote = (vote) => {
     if (!user || !user.username) {
       navigate("/login");
@@ -76,7 +94,7 @@ export default function CommentCard({ comment }) {
   return !isCommentDeleted ? (
     <li>
       <h3>
-        {commentToPost.author}/ {new Date(comment.created_at).toDateString()}
+        {commentToPost.author}/ {posted}
       </h3>
       <p>{commentToPost.body}</p>
       {user && user.username === commentToPost.author ? null : (
