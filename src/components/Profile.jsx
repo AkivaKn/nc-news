@@ -4,25 +4,33 @@ import UserCommentsList from "./UserCommentsList";
 import { useNavigate } from "react-router-dom";
 import StyledButton from "../styling-components/StyledButton";
 import StyledProfile from "../styling-components/StyledProfile";
-
+import UserArticleList from "./UserArticlesList";
 
 export default function Profile() {
-  const { user,setUser } = useContext(UserContext);
-    const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [showArticles, setShowArticles] = useState(false);
+  const [showComments,setShowComments] = useState(false)
 
   useEffect(() => {
-    if (user===undefined || user === '') {
+    if (user === undefined || user === "") {
       navigate("/login");
     }
   }, []);
-    
+
   const handleClick = () => {
-    setUser('')
+    setUser("");
     navigate("/login");
+  };
 
-}
+  const handleArticlesClick = () => {
+    setShowArticles(!showArticles)
+  }
 
-    
+  const handleCommentsClick = () => {
+    setShowComments(!showComments)
+  }
+
   return (
     <StyledProfile>
       <h3>{user.username}</h3>
@@ -31,8 +39,16 @@ export default function Profile() {
       <p>You have posted {user.comment_count} comments</p>
       <StyledButton>
         <button onClick={handleClick}>Log out</button>
-        </StyledButton>
-      <UserCommentsList />
+      </StyledButton>
+      <StyledButton>
+        <button onClick={handleArticlesClick}>Your articles</button>
+      </StyledButton>
+      {showArticles? <UserArticleList /> :null}
+      <StyledButton>
+        <button onClick={handleCommentsClick}>Your comments</button>
+      </StyledButton>
+      {showComments? <UserCommentsList /> :null}
+      
     </StyledProfile>
   );
 }

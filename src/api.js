@@ -10,6 +10,7 @@ export default function getArticles(currentTopic,sort_by,order) {
   });
 }
 
+
 export function getMoreArticles(pageIndex,currentTopic,sort_by,order) {
   return axios.get("https://news-now.onrender.com/api/articles", {
     params: {

@@ -4,10 +4,9 @@ import getArticles, { getMoreArticles } from "../api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 
-
-export default function TopicArticlesList({ current_topic }) {
+export default function ArticlesList({ current_topic }) {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
@@ -15,20 +14,20 @@ export default function TopicArticlesList({ current_topic }) {
   const [isGetArticlesError, setIsGetArticlesError] = useState(false);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const sortByQuery = searchParams.get('sort_by');
-  const orderQuery = searchParams.get('order');
+  const sortByQuery = searchParams.get("sort_by");
+  const orderQuery = searchParams.get("order");
 
   const setSortOrder = (direction) => {
     const newParams = new URLSearchParams(searchParams);
-    newParams.set('order', direction);
+    newParams.set("order", direction);
     setSearchParams(newParams);
   };
 
   const setSortBy = (sortBy) => {
     const newParams = new URLSearchParams(searchParams);
-    newParams.set('sort_by', sortBy);
+    newParams.set("sort_by", sortBy);
     setSearchParams(newParams);
-  }
+  };
 
   useEffect(() => {
     setIsGetArticlesError(false);
@@ -43,7 +42,7 @@ export default function TopicArticlesList({ current_topic }) {
         setIsGetArticlesError(true);
         setIsLoading(false);
         if (err.response.data.msg === "Topic not found") {
-         navigate('/not-found')
+          navigate("/not-found");
         }
       });
   }, [current_topic, sortByQuery, orderQuery]);
@@ -69,8 +68,8 @@ export default function TopicArticlesList({ current_topic }) {
   };
 
   const handleChange = (e) => {
-    if (e.target.value === '') {
-      return
+    if (e.target.value === "") {
+      return;
     }
     const params = e.target.value.split(" ");
     setSortBy(params[0]);
@@ -78,14 +77,12 @@ export default function TopicArticlesList({ current_topic }) {
   };
 
   return (
-    < >
-      
+    <>
       <div id="articles-section">
-
         <div id="sort-by-select">
           <label htmlFor="sort-by">Sort</label>
           <select name="sort-by" id="sort-by" onChange={handleChange}>
-            <option value=''>- - - sort</option>
+            <option value="">- - - sort</option>
             <option value="created_at desc">Date descending</option>
             <option value="created_at asc">Date ascending</option>
             <option value="votes desc">Votes descending</option>
@@ -94,7 +91,7 @@ export default function TopicArticlesList({ current_topic }) {
             <option value="comment_count asc">Comments ascending</option>
           </select>
         </div>
-    
+
         <InfiniteScroll
           dataLength={articles.length}
           next={fetchMoreArticles}
