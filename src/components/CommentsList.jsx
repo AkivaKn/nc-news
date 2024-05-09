@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function CommentsList({ article_id}) {
+export default function CommentsList({article_id}) {
   const [comments, setComments] = useState([]);
   const [showPostComment, setShowPostComment] = useState(false);
   const [commentInput, setCommentInput] = useState("");
@@ -107,9 +107,9 @@ export default function CommentsList({ article_id}) {
         <button onClick={handleClick}>Add comment</button>
         </StyledButton>
       {showPostComment ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="comment-form">
           <label htmlFor="comment-body">Comment:</label>
-          <input type="text" id="comment-body" onChange={handleChange} value={commentInput} />
+          <textarea id="comment-body" rows="4" cols="50" onChange={handleChange} value={commentInput} ></textarea>
       <StyledButton>
           
             <button type="submit">Post comment</button>
@@ -127,7 +127,7 @@ export default function CommentsList({ article_id}) {
     >
       <ul id="comments-list">
         {comments.map((comment) => {
-          return <StyledComment key={comment.comment_id}><CommentCard article_id={article_id} comment={comment} /></StyledComment>;
+          return <StyledComment key={comment.comment_id}><CommentCard comment={comment} /></StyledComment>;
         })}
         {isGetError ? <p>That didn't work. Please try again.</p> : null}
         </ul>

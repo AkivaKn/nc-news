@@ -5,7 +5,7 @@ import StyledVotes from "../styling-components/StyledVotes";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
 
-export default function CommentCard({ comment, article_id }) {
+export default function CommentCard({ comment}) {
   const [commentVoteChange, setCommentVoteChange] = useState(0);
   const [isCommentPatchError, setIsCommentPatchError] = useState(false);
   const [isCommentDeleted, setIsCommentDeleted] = useState(false);
@@ -13,7 +13,8 @@ export default function CommentCard({ comment, article_id }) {
   const [isUndoError, setIsUndoError] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [commentToPost, setCommentToPost] = useState(comment);
-  const { user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const [articleId,setArticleId] = useState(comment.article_id)
 
 
   const handleVote = (vote) => {
@@ -49,15 +50,15 @@ export default function CommentCard({ comment, article_id }) {
       });
   };
 
-  const handleUndoClick = () => {
+  const handleUndoClick = (e) => {
     e.target.disabled = true;
     setIsUndoError(false)
     let newComment = {
-      username: user,
+      username: user.username,
       body: commentToPost.body,
       votes: commentToPost.votes
     };
-    postComment(article_id, newComment).then((res) => {
+    postComment(articleId, newComment).then((res) => {
       setIsCommentDeleted(false);
       setCommentToPost(res.data.comment)
     }).catch(() => {
