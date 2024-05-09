@@ -72,7 +72,7 @@ export function getCommentsByUsername(username) {
 }
 
 export function getMoreCommentsByUsername(username,pageIndex) {
-  return axios.get(`https://news-now.onrender.com/api/articles/${username}/comments`, {
+  return axios.get(`https://news-now.onrender.com/api/users/${username}/comments`, {
     params: {
       p: pageIndex,
       limit: 10,

@@ -20,6 +20,8 @@ export default function UserCommentsList() {
         setUserComments(comments);
         setIsGetError(false);
         setIsLoading(false);
+        comments.length === 10 ? setHasMore(true) : setHasMore(false);
+
       })
       .catch(() => {
         setIsGetError(true);
@@ -51,7 +53,7 @@ export default function UserCommentsList() {
             hasMore={hasMore} 
             endMessage={<p>No more comments to load.</p>}
             >
-         <ul id="users-comments-list">
+         <ul id="user-comments-list">
         {userComments.map((comment) => {
           return <StyledComment key={comment.comment_id}><CommentCard  comment={comment} /></StyledComment>;
         })}

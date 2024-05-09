@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteComment, postComment } from "../api";
+import { deleteComment, patchComment, postComment } from "../api";
 import StyledButton from "../styling-components/StyledButton";
 import StyledVotes from "../styling-components/StyledVotes";
 import { useContext } from "react";
