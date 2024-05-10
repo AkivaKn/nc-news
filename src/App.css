@@ -136,13 +136,15 @@ a {
   font-size: 2em;
 }
 
-#articles-list {
+#articles-list,
+#users-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-#styled-article-card li {
+#styled-article-card li,
+#styled-user-card li {
   display: flex;
   flex-direction: column;
   font-size: 1em;
@@ -154,12 +156,20 @@ a {
 }
 
 @media screen and (min-width: 600px) {
-  #styled-article-card li{
+  #styled-article-card li,
+  #styled-user-card li{
     width: 400px;
     height: 600px;
   }
 }
 
+#styled-user-card li{
+  text-align: center;
+}
+
+#styled-user-card img{
+  max-height: 500px;
+}
 
 #styled-article-page {
   text-align: center;
@@ -205,6 +215,8 @@ a {
   padding: 10px;
   border-radius: 20px;
 }
+
+
 
 #styled-login {
   padding: 15px;

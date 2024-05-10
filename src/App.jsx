@@ -11,6 +11,7 @@ import { ThemeContext } from "./contexts/Theme";
 import { useContext, useEffect, useState } from "react";
 import PostArticle from "./components/PostArticle";
 import { getTopics } from "./api";
+import Users from "./components/Users";
 
 function App() {
   const { theme } = useContext(ThemeContext);
@@ -36,7 +37,8 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/post-article" element={<PostArticle topicsList={topicsList} />}/>
+          <Route path="/post-article" element={<PostArticle topicsList={topicsList} />} />
+          <Route path="/users" element={<Users/>}/>
           </Routes>
         </div>
       </UserProvider>
