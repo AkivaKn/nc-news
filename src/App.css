@@ -4,43 +4,83 @@
   box-sizing: border-box;
 }
 
-#root {
+#app {
   width: 100vw;
   min-height: 100vh;
-  background-color: rgb(246, 240, 232);
-  color:rgb(53, 48, 48) ;
 }
 
-input,option,select,textarea{
+input,
+option,
+select,
+textarea {
   all: unset;
-  background-color: rgb(246, 240, 232);
-  color:rgb(53, 48, 48) ;
   border-radius: 20px;
   border: none;
-  box-shadow: 0 0 6px 3px rgb(220, 211, 198);
   padding: 15px;
   text-align: left;
 }
 
-
-
-#styled-header{
+#styled-header {
   font-size: 0.7rem;
   text-align: center;
-background-color: rgb(53, 48, 48);
-width: 100vw;
-height: 10vh;
-color: rgb(246, 240, 232);
-padding: 15px;
+  width: 100vw;
+  height: 10vh;
+  padding: 15px;
 }
 
+.light {
+  background-color: rgb(246, 240, 232);
+  color: rgb(53, 48, 48);
+}
 
+.dark {
+  background-color: rgb(53, 48, 48);
+  color: rgb(246, 240, 232);
+}
 
-#styled-header i,#styled-header img{
+.light-card,
+.light-button button,
+.light input,
+.light textarea{
+  background-color: rgb(246, 235, 221);
+  color: rgb(53, 48, 48);
+  box-shadow: 0 0 3px 3px rgb(229, 215, 194);
+}
+
+.light-card:hover,
+.light-button button:hover {
+  background-color: rgb(219, 219, 215);
+}
+
+.dark-card,
+.dark-button button,
+.dark input ,
+.dark textarea{
+  color: rgb(246, 235, 221);
+  background-color: rgb(30, 23, 23);
+  box-shadow: 0 0 3px 3px rgb(87, 80, 80);
+
+}
+
+.dark-card:hover,
+.dark-button button:hover {
+  background-color: rgb(16, 5, 5);
+}
+
+.fa-user,
+#styled-header img {
   font-size: 1.5rem;
   position: absolute;
   right: 3vw;
-  top: 3vh;
+  top: 2.5vh;
+}
+
+.theme-toggle-button {
+  font-size: 1.5rem;
+  position: absolute;
+  left: 3vw;
+  top: 2.5vh;
+  border: none;
 }
 
 ul,
@@ -58,21 +98,21 @@ a {
   margin: 10px;
 }
 
-#home-page{
+#home-page {
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 20px;
 }
 
-#sort-filter{
+#sort-filter {
   display: flex;
   gap: 30px;
   margin: 5vh 3vw;
   font-size: 2.7vw;
 }
 
-#sort-filter select{
+#sort-filter select {
   margin-left: 15px;
   width: 20vw;
 }
@@ -83,26 +123,15 @@ a {
   font-size: 2em;
 }
 
-
-#styled-article-card li  {
+#styled-article-card li {
   display: flex;
   flex-direction: column;
   font-size: 1em;
-line-height: 2em;
+  line-height: 2em;
   padding: 3vw;
-  margin:5vh 3vw ;
-  box-shadow: 0 0 6px 3px rgb(220, 211, 198);
+  margin: 5vh 3vw;
   border-radius: 20px;
-  background-color: rgb(246, 235, 221);
-
 }
-
-
-#styled-article-card li:hover {
-  background-color: rgb(219, 219, 215);
-}
-
-
 
 #styled-article-page {
   text-align: center;
@@ -118,116 +147,104 @@ line-height: 2em;
 }
 
 #styled-votes button {
-  width: 30px;  
+  width: 30px;
 }
 
-#styled-button button:hover {
-  background-color: rgb(192, 180, 162);
+#styled-votes p {
+  margin: 0 10px;
 }
 
-#styled-votes p{
-margin: 0 10px;
-}
-
-#styled-button button{
+#styled-button button {
   border: none;
-  box-shadow: 0 0 3px 3px rgb(229, 215, 194);
-  background-color: rgb(251, 236, 214);
- height: 30px;
- padding: 0 5px;
- margin-top: 15px;
- margin-bottom: 15px;
+  height: 30px;
+  padding:  5px 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
 }
 
-#comments-list,#user-comments-list{
+#comments-list,
+#user-comments-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  
 }
 
 #styled-comment {
   width: 80%;
   margin: 15px 0;
-  box-shadow: 0 0 6px 3px;
-padding: 10px;
-border-radius: 20px;
-  background-color: rgb(246, 235, 221);
-  box-shadow: 0 0 6px 3px rgb(220, 211, 198);
+  padding: 10px;
+  border-radius: 20px;
 }
 
-#styled-login{
+#styled-login {
   padding: 15px;
   text-align: center;
 }
 
-#styled-login input{
+#styled-login input {
   margin: 10px;
 }
 
-#styled-login button{
+#styled-login button {
   margin: 10px;
 }
 
-#styled-profile{
+#styled-profile {
   text-align: center;
   line-height: 40px;
 }
 
-#styled-profile img{
+#styled-profile img {
   height: 50vh;
   border-radius: 5%;
 }
 
-#profile-picture{
+#profile-picture {
   border-radius: 50%;
 }
 
-#styled-not-found{
+#styled-not-found {
   text-align: center;
   line-height: 2em;
   font-size: 3rem;
 }
 
-#styled-not-found h2{
+#styled-not-found h2 {
   font-size: 2em;
 }
 
-#comment-form{
+#comment-form {
   display: flex;
   flex-direction: column;
 }
 
-#styled-login-dialog{
+#styled-login-dialog {
   position: absolute;
   width: 60%;
   height: 50%;
-  background-color: rgb(53, 48, 48);
-color: rgb(246, 240, 232);
-border-radius: 15px;
-top: 25%;
-right: 20%;
-display: flex;
-align-items: center;  
-justify-content: center;
+  border-radius: 15px;
+  top: 25%;
+  right: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-form{
+.login-form {
   display: flex;
   flex-direction: column;
 }
 
-.login-form input{
-  margin: 10px ;
+.login-form input {
+  margin: 10px;
 }
 
-.close-button{
-  background-color: rgb(53, 48, 48);
-border: none;
-color: rgb(246, 240, 232);
-position: absolute;
-top: 2%;
-right: 2%;
-font-size: 2em;
+.close-button {
+  border: none;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  font-size: 2em;
 }

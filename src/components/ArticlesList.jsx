@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { getTopics } from '../api';
+import { ThemeContext } from "../contexts/Theme";
+import { useContext } from "react";
 
 
 export default function ArticlesList() {
@@ -20,6 +22,8 @@ export default function ArticlesList() {
   const orderQuery = searchParams.get("order");
   const topicQuery = searchParams.get("topic");
   const [topicsList, setTopicsList] = useState([]);
+  const { theme } = useContext(ThemeContext);
+
 
   const setSortOrder = (direction) => {
     const newParams = new URLSearchParams(searchParams);
@@ -103,7 +107,7 @@ export default function ArticlesList() {
         <div id="sort-filter">
         <div id="sort-by-select">
           <label htmlFor="sort-by">Sort</label>
-          <select name="sort-by" id="sort-by" onChange={handleChange}>
+          <select name="sort-by" id="sort-by" className={`${theme}-card`} onChange={handleChange}>
             <option value="">- - - sort</option>
             <option value="created_at desc">Date descending</option>
             <option value="created_at asc">Date ascending</option>
@@ -115,7 +119,7 @@ export default function ArticlesList() {
         </div>
         <div id="topics-checkbox">
           <label htmlFor="topic-select">Topic</label>
-          <select name="topic-select" id="topic-select" onChange={handleTopicChange}>
+          <select name="topic-select" id="topic-select" className={`${theme}-card`} onChange={handleTopicChange}>
             <option value="">All topics</option>
             {topicsList.map((topic) => {
               return <option value={topic.slug} key={topic.slug}>{topic.slug}</option>

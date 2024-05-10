@@ -1,6 +1,10 @@
 import StyledArticleCard from "../styling-components/StyledArticleCard";
+import { useContext } from "react";
+import { ThemeContext } from "../contexts/Theme";
 
 export default function ArticleCard({ article }) {
+  const { theme } = useContext(ThemeContext)
+
   const currentTime = Date.now();
   const createdDate = new Date(article.created_at);
   const createdUnix = createdDate.getTime();
@@ -21,7 +25,7 @@ export default function ArticleCard({ article }) {
 
   return (
     <StyledArticleCard>
-      <li>
+      <li className={`${theme}-card`}>
         <h2>
           {article.author}/ {posted}
         </h2>

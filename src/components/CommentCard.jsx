@@ -5,6 +5,7 @@ import StyledVotes from "../styling-components/StyledVotes";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
 
+
 export default function CommentCard({ comment }) {
   const [commentVoteChange, setCommentVoteChange] = useState(0);
   const [isCommentPatchError, setIsCommentPatchError] = useState(false);
