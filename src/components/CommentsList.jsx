@@ -6,6 +6,7 @@ import StyledButton from "../styling-components/StyledButton";
 import StyledComment from "../styling-components/StyledComment";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
+import { ThemeContext } from "../contexts/Theme";
 
 
 
@@ -22,7 +23,7 @@ export default function CommentsList({article_id,setIsDialogOpen}) {
   const [nextPageIndex, setNextPageIndex] = useState(2);
   const [isPosting, setIsPosting] = useState(false);
   const { user} = useContext(UserContext);
-
+const {theme} = useContext(ThemeContext)
 
 
   const handleClick = () => {
@@ -107,7 +108,7 @@ export default function CommentsList({article_id,setIsDialogOpen}) {
         <button onClick={handleClick}>Add comment</button>
         </StyledButton>
       {showPostComment ? (
-        <form onSubmit={handleSubmit} id="comment-form">
+        <form onSubmit={handleSubmit} id="comment-form" className={theme}>
           <label htmlFor="comment-body">Comment:</label>
           <textarea id="comment-body" rows="4" cols="50" onChange={handleChange} value={commentInput} ></textarea>
       <StyledButton>

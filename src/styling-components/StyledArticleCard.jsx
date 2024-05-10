@@ -1,6 +1,9 @@
-export default function StyledArticleCard({children}) {
+
+
+export default function StyledArticleCard({ children }) {
+
     return (
-        <div id="styled-article-card">
+        <div id="styled-article-card" >
             {children}
         </div>
     )

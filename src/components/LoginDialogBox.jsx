@@ -3,12 +3,14 @@ import { UserContext } from "../contexts/User";
 import { getUserByUsername } from "../api";
 import StyledLoginDialog from "../styling-components/StyledLoginDialog";
 import StyledButton from "../styling-components/StyledButton";
+import { ThemeContext } from "../contexts/Theme";
 
 export default function LoginDialog({setIsDialogOpen}) {
   const { user, setUser } = useContext(UserContext);
   const [usernameInput, setUsernameInput] = useState("");
   const [isError, setIsError] = useState(false);
-
+  const { theme } = useContext(ThemeContext)
+  const dialogTheme = theme === 'light' ? 'dark' : 'light';
  
 
   const handleSubmit = (e) => {
@@ -52,7 +54,7 @@ export default function LoginDialog({setIsDialogOpen}) {
         </div>
           ) : (
                   <>
-                      <button onClick={handleCloseClick} className="close-button"><i className="fa-solid fa-xmark"></i></button>
+                      <button onClick={handleCloseClick} className={`close-button ${dialogTheme}`}><i className="fa-solid fa-xmark"></i></button>
                   <div>
           <form onSubmit={handleSubmit} className="login-form">
             <label htmlFor="username-input">Username</label>
