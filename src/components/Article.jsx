@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { getArticleById } from "../api";
 import { useNavigate } from "react-router-dom";
 import StyledArticlePage from "../styling-components/StyledArticlePage";
+import LoginDialog from "./LoginDialogBox";
+
 
 
 export default function Article() {
@@ -13,6 +15,7 @@ export default function Article() {
   const [isArticleGetError, setIsArticleGetError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const [isDialogOpen,setIsDialogOpen] = useState(false)
 
   let { article_id } = useParams();
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function Article() {
 
   (
     <StyledArticlePage>
-  
+      {isDialogOpen ? <LoginDialog setIsDialogOpen={setIsDialogOpen} />:null}
         {isArticleGetError ? (
         <p>That didn't work. Please refresh the page.</p>
   ) : null
@@ -59,11 +62,12 @@ export default function Article() {
       <ArticleBody
         currentArticle={currentArticle}
         setShowComments={setShowComments}
-        showComments={showComments}
+              showComments={showComments}
+              setIsDialogOpen={setIsDialogOpen}
       />
 
       {showComments ? (
-        <CommentsList article_id={article_id}/>
+        <CommentsList article_id={article_id} setIsDialogOpen={setIsDialogOpen}/>
 ) : null
         }
       </>

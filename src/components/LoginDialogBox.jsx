@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/User";
 import { getUserByUsername } from "../api";
-import StyledLogin from "../styling-components/StyledLogin";
+import StyledLoginDialog from "../styling-components/StyledLoginDialog";
 import StyledButton from "../styling-components/StyledButton";
 
-export default function Login() {
+export default function LoginDialog({setIsDialogOpen}) {
   const { user, setUser } = useContext(UserContext);
   const [usernameInput, setUsernameInput] = useState("");
   const [isError, setIsError] = useState(false);
@@ -19,6 +19,11 @@ export default function Login() {
         setUser(res.data.user);
         setUsernameInput("");
       })
+        .then(() => {
+            setTimeout(() => {
+                setIsDialogOpen(false)
+            }, 3000);
+        })
       .catch((err) => {
         setIsError(true);
       });
@@ -31,9 +36,13 @@ export default function Login() {
   const handleClick = () => {
     setUser("");
   };
+    
+    const handleCloseClick = () => {
+        setIsDialogOpen(false)
+    }
 
   return (
-    <StyledLogin>
+    <StyledLoginDialog>
       {user ? (
         <div>
           <h2>Thank you. You are now logged in.</h2>
@@ -41,8 +50,10 @@ export default function Login() {
             <button onClick={handleClick}>Log out</button>
           </StyledButton>
         </div>
-      ) : (
-        <div>
+          ) : (
+                  <>
+                      <button onClick={handleCloseClick} className="close-button"><i className="fa-solid fa-xmark"></i></button>
+                  <div>
           <form onSubmit={handleSubmit} className="login-form">
             <label htmlFor="username-input">Username</label>
             <input type="text" value={usernameInput} onChange={handleChange} />
@@ -51,8 +62,9 @@ export default function Login() {
               <button type="submit">Login</button>
             </StyledButton>
           </form>
-        </div>
+                      </div>
+                      </>
       )}
-    </StyledLogin>
+    </StyledLoginDialog>
   );
 }
