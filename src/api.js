@@ -100,3 +100,9 @@ export function getMoreCommentsByUsername(username, pageIndex) {
 export function postArticle(article) {
   return axios.post("https://news-now.onrender.com/api/articles", article);
 }
+
+export function deleteArticle(article_id) {
+  return axios.delete(
+    `https://news-now.onrender.com/api/articles/${article_id}`
+  );
+}

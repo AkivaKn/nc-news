@@ -146,7 +146,7 @@ export default function PostArticle({ topicsList }) {
         </StyledButton>
       {isPosting?<div className="posting-message"><i className="fa-solid fa-spinner fa-spin"></i><p>Posting</p></div>:null}
           {isPostError ? <p>That didn't work. Please try again.</p> : null}
-          {postSuccess ? <> <p>Your comment has been posted!</p>
+          {postSuccess ? <> <p>Your article has been posted!</p>
           <Link to={'/'}><i className="fa-solid fa-house"></i></Link>
           </> : null}
           </form>

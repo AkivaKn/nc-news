@@ -15,7 +15,27 @@ export default function Article() {
   const [isArticleGetError, setIsArticleGetError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const [isDialogOpen,setIsDialogOpen] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  
+  const currentTime = Date.now();
+  const createdDate = new Date(currentArticle.created_at);
+  const createdUnix = createdDate.getTime();
+  const numOfMinutesSincePosted = Math.floor(
+    (currentTime - createdUnix) / 60000
+  );
+  const numOfHoursSincePosted = Math.floor(
+    (currentTime - createdUnix) / 3600000
+  );
+  let posted;
+  if (numOfMinutesSincePosted < 60) {
+    posted = `${numOfMinutesSincePosted} minutes ago`;
+  } else if (numOfHoursSincePosted <= 24) {
+    posted = `${numOfHoursSincePosted} hours ago`;
+  } else {
+    posted = new Date(currentArticle.created_at).toDateString();
+  }
+
+
 
   let { article_id } = useParams();
   useEffect(() => {
@@ -25,6 +45,7 @@ export default function Article() {
         setCurrentArticle(article);
         setIsLoading(false);
       })
+    
       .catch((err) => {
           navigate('/not-found')
         setIsArticleGetError(true);
@@ -50,8 +71,7 @@ export default function Article() {
       <>
       <h2>{currentArticle.title}</h2>
       <p>
-        {currentArticle.author}/ 
-        {new Date(currentArticle.created_at).toDateString()}
+        {currentArticle.author}/ {posted}
       </p>
       <h3>{currentArticle.topic}</h3>
       <img

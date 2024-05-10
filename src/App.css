@@ -156,12 +156,10 @@ a {
 @media screen and (min-width: 600px) {
   #styled-article-card li{
     width: 400px;
+    height: 600px;
   }
 }
 
-#styled-article-card img {
-  align-self: center;
-}
 
 #styled-article-page {
   text-align: center;
