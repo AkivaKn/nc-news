@@ -30,7 +30,7 @@ export default function ArticleCard({ article }) {
           {article.author}/ {posted}
         </h2>
         <h3>{article.title}</h3>
-        <img src={article.article_img_url} alt="article image" height="200px" />
+        <img src={article.article_img_url} alt="article image"  />
         <h4>{article.topic}</h4>
         <p>Votes: {article.votes}</p>
         <p>Comments: {article.comment_count}</p>

@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { patchArticle } from "../api";
+import { deleteArticle, patchArticle } from "../api";
 import StyledVotes from "../styling-components/StyledVotes";
 import StyledButton from "../styling-components/StyledButton";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
+import { useNavigate } from "react-router-dom";
+
 
 export default function ArticleBody({
   currentArticle,
@@ -14,6 +16,31 @@ export default function ArticleBody({
   const [articleVoteChange, setArticleVoteChange] = useState(0);
   const [isArticlePatchError, setIsArticlePatchError] = useState(false);
   const { user } = useContext(UserContext);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false)
+  const [isDeleteError,setIsDeleteError] = useState(false)
+  const navigate = useNavigate();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+
+
+  const handleDeleteClick = (e) => {
+    e.target.disabled = true;
+    setIsDeleting(true);
+setIsDeleteError(false)
+    deleteArticle(currentArticle.article_id)
+      .then(() => {
+        setShowDeleteSuccessMessage(true)
+        setIsDeleting(false)
+        setTimeout(() => {
+          navigate('/')
+        }, 2500);
+      })
+      .catch(() => {
+        setIsDeleteError(true)
+        setIsDeleting(false)
+        e.target.disabled = false;
+    })
+}
 
   const handleClick = () => {
     setShowComments(!showComments);
@@ -66,7 +93,21 @@ export default function ArticleBody({
           ) : null}
         </StyledVotes>
       )}
-
+      {user && user.username === currentArticle.author ?
+        <StyledButton>
+          <button onClick={handleDeleteClick}>Delete article</button>  
+          </StyledButton>          
+        : null}
+       {isDeleting ? (
+            <div className="deleting-message">
+              <i className="fa-solid fa-spinner fa-spin"></i>
+              <p>Deleting</p>
+            </div>
+          ) : null}
+      {isDeleteError ? <p>That didn't work. Please try again.</p> : null}
+      {showDeleteSuccessMessage ?
+      <p>Your article has been deleted</p>:null
+    }
       <StyledButton>
         <button onClick={handleClick}>
           {showComments ? "Hide" : "Show"} {currentArticle.comment_count}{" "}

@@ -21,7 +21,7 @@ textarea {
 }
 
 #styled-header {
-  font-size: 0.7rem;
+  font-size: 1rem;
   text-align: center;
   width: 100vw;
   height: 10vh;
@@ -41,7 +41,7 @@ textarea {
 .light-card,
 .light-button button,
 .light input,
-.light textarea{
+.light textarea {
   background-color: rgb(246, 235, 221);
   color: rgb(53, 48, 48);
   box-shadow: 0 0 3px 3px rgb(229, 215, 194);
@@ -54,12 +54,11 @@ textarea {
 
 .dark-card,
 .dark-button button,
-.dark input ,
-.dark textarea{
+.dark input,
+.dark textarea {
   color: rgb(246, 235, 221);
   background-color: rgb(30, 23, 23);
   box-shadow: 0 0 3px 3px rgb(87, 80, 80);
-
 }
 
 .dark-card:hover,
@@ -67,12 +66,26 @@ textarea {
   background-color: rgb(16, 5, 5);
 }
 
-.fa-user,
-#styled-header img {
+#profile-menu {
   font-size: 1.5rem;
   position: absolute;
   right: 3vw;
   top: 2.5vh;
+}
+
+#profile-menu-button{
+  background: none;
+  border: none;
+}
+
+#profile-nav{
+  display: flex;
+  flex-direction: column;
+}
+
+#profile-nav button{
+  padding: 5px;
+  border: none;
 }
 
 .theme-toggle-button {
@@ -123,6 +136,12 @@ a {
   font-size: 2em;
 }
 
+#articles-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 #styled-article-card li {
   display: flex;
   flex-direction: column;
@@ -131,7 +150,16 @@ a {
   padding: 3vw;
   margin: 5vh 3vw;
   border-radius: 20px;
+  width: 80vw;
 }
+
+@media screen and (min-width: 600px) {
+  #styled-article-card li{
+    width: 400px;
+    height: 600px;
+  }
+}
+
 
 #styled-article-page {
   text-align: center;
@@ -157,7 +185,7 @@ a {
 #styled-button button {
   border: none;
   height: 30px;
-  padding:  5px 10px;
+  padding: 5px 10px;
   margin-top: 15px;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -230,6 +258,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .login-form {
@@ -247,4 +276,19 @@ a {
   top: 2%;
   right: 2%;
   font-size: 2em;
+}
+
+#post-article-form{
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin-left: 10vw;
+  margin-top: 15px;
+  gap: 15px;
+}
+
+#title-input-error,
+#post-topic-select-error,
+#article-body-input-error{
+  box-shadow: 0 0 3px 3px rgb(137, 6, 6);
 }

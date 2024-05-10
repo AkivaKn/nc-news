@@ -47,6 +47,7 @@ export default function LoginDialog({setIsDialogOpen}) {
     <StyledLoginDialog>
       {user ? (
         <div>
+                      <button onClick={handleCloseClick} className={`close-button ${dialogTheme}`}><i className="fa-solid fa-xmark"></i></button>
           <h2>Thank you. You are now logged in.</h2>
           <StyledButton>
             <button onClick={handleClick}>Log out</button>
