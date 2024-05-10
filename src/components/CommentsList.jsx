@@ -83,7 +83,7 @@ export default function CommentsList({article_id}) {
       .catch(() => {
         setIsGetError(true);
       });
-  }, [isPostError]);
+  }, []);
 
   const fetchMoreComments = () => {
     setIsLoading(true)

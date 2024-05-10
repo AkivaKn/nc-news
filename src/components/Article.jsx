@@ -23,9 +23,7 @@ export default function Article() {
         setIsLoading(false);
       })
       .catch((err) => {
-        if (err.response.status === 404) {
           navigate('/not-found')
-        }
         setIsArticleGetError(true);
         setIsLoading(false)
       });
