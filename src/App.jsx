@@ -8,22 +8,35 @@ import { UserProvider } from "./contexts/User";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import { ThemeContext } from "./contexts/Theme";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import PostArticle from "./components/PostArticle";
+import { getTopics } from "./api";
 
 function App() {
   const { theme } = useContext(ThemeContext);
+  const [topicsList, setTopicsList] = useState([]);
+
+
+  useEffect(() => {
+    getTopics().then(({data:{topics}}) => {
+      setTopicsList(topics)
+    })
+},[])
+
+
 
   return (
       <UserProvider>
         <div id="app" className={theme}>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home topicsList={topicsList}/>} />
             <Route path="/articles/:article_id" element={<Article />} />
             <Route path="/not-found" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/post-article" element={<PostArticle topicsList={topicsList} />}/>
           </Routes>
         </div>
       </UserProvider>

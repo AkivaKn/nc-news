@@ -4,12 +4,11 @@ import { getUserByUsername } from "../api";
 import StyledLogin from "../styling-components/StyledLogin";
 import StyledButton from "../styling-components/StyledButton";
 
+
 export default function Login() {
   const { user, setUser } = useContext(UserContext);
   const [usernameInput, setUsernameInput] = useState("");
   const [isError, setIsError] = useState(false);
-
- 
 
   const handleSubmit = (e) => {
     e.preventDefault();

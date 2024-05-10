@@ -115,7 +115,7 @@ const {theme} = useContext(ThemeContext)
           
             <button type="submit">Post comment</button>
       </StyledButton>
-            {isPosting?<div className="posting-message"><i className="fa-solid fa-spinner fa-spin"></i><p>Posting</p></div>:null}
+      {isPosting?<div className="posting-message"><i className="fa-solid fa-spinner fa-spin"></i><p>Posting</p></div>:null}
           {isPostError ? <p>That didn't work. Please try again.</p> : null}
         </form>
       ) : null}

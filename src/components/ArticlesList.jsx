@@ -5,12 +5,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import { getTopics } from '../api';
 import { ThemeContext } from "../contexts/Theme";
 import { useContext } from "react";
 
 
-export default function ArticlesList() {
+export default function ArticlesList({topicsList}) {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
@@ -21,7 +20,6 @@ export default function ArticlesList() {
   const sortByQuery = searchParams.get("sort_by");
   const orderQuery = searchParams.get("order");
   const topicQuery = searchParams.get("topic");
-  const [topicsList, setTopicsList] = useState([]);
   const { theme } = useContext(ThemeContext);
 
 
@@ -43,11 +41,7 @@ export default function ArticlesList() {
     setSearchParams(newParams);
   };
 
-  useEffect(() => {
-    getTopics().then(({data:{topics}}) => {
-      setTopicsList(topics)
-    })
-},[])
+
 
 
   useEffect(() => {
