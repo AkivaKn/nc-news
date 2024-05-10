@@ -5,8 +5,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import { getTopics } from '../api';
 
-export default function ArticlesList({ current_topic }) {
+
+export default function ArticlesList() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
@@ -16,6 +18,8 @@ export default function ArticlesList({ current_topic }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortByQuery = searchParams.get("sort_by");
   const orderQuery = searchParams.get("order");
+  const topicQuery = searchParams.get("topic");
+  const [topicsList, setTopicsList] = useState([]);
 
   const setSortOrder = (direction) => {
     const newParams = new URLSearchParams(searchParams);
@@ -29,9 +33,22 @@ export default function ArticlesList({ current_topic }) {
     setSearchParams(newParams);
   };
 
+  const setTopic = (topic) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("topic", topic);
+    setSearchParams(newParams);
+  };
+
+  useEffect(() => {
+    getTopics().then(({data:{topics}}) => {
+      setTopicsList(topics)
+    })
+},[])
+
+
   useEffect(() => {
     setIsGetArticlesError(false);
-    getArticles(current_topic, sortByQuery, orderQuery)
+    getArticles(topicQuery, sortByQuery, orderQuery)
       .then(({ data }) => {
         setArticles(data.articles);
         setIsLoading(false);
@@ -45,11 +62,11 @@ export default function ArticlesList({ current_topic }) {
           navigate("/not-found");
         }
       });
-  }, [current_topic, sortByQuery, orderQuery]);
+  }, [topicQuery, sortByQuery, orderQuery]);
 
   const fetchMoreArticles = () => {
     setIsLoading(true);
-    getMoreArticles(nextPageIndex, current_topic, sortByQuery, orderQuery)
+    getMoreArticles(nextPageIndex, topicQuery, sortByQuery, orderQuery)
       .then((res) => {
         setArticles((currArticles) => {
           return [...currArticles, ...res.data.articles];
@@ -76,9 +93,14 @@ export default function ArticlesList({ current_topic }) {
     setSortOrder(params[1]);
   };
 
+  const handleTopicChange = (e) => {
+    setTopic(e.target.value)
+  }
+
   return (
     <>
       <div id="articles-section">
+        <div id="sort-filter">
         <div id="sort-by-select">
           <label htmlFor="sort-by">Sort</label>
           <select name="sort-by" id="sort-by" onChange={handleChange}>
@@ -91,7 +113,17 @@ export default function ArticlesList({ current_topic }) {
             <option value="comment_count asc">Comments ascending</option>
           </select>
         </div>
+        <div id="topics-checkbox">
+          <label htmlFor="topic-select">Topic</label>
+          <select name="topic-select" id="topic-select" onChange={handleTopicChange}>
+            <option value="">All topics</option>
+            {topicsList.map((topic) => {
+              return <option value={topic.slug} key={topic.slug}>{topic.slug}</option>
+})}
 
+          </select>
+          </div>
+          </div>
         <InfiniteScroll
           dataLength={articles.length}
           next={fetchMoreArticles}
