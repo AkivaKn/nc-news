@@ -106,3 +106,9 @@ export function deleteArticle(article_id) {
     `https://news-now.onrender.com/api/articles/${article_id}`
   );
 }
+
+export function getUsers() {
+  return axios.get(
+    'https://news-now.onrender.com/api/users'
+  )
+}

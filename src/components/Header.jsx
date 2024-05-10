@@ -32,6 +32,11 @@ export default function Header() {
 
     setShowProfileMenu(false);
   };
+    
+    const handleUsersClick = () => {
+        navigate('/users');
+        setShowProfileMenu(false)
+    }
 
   return (
     <header>
@@ -66,7 +71,8 @@ export default function Header() {
           {showProfileMenu ? (
             <nav id="profile-nav" className={`${headerTheme}-button`}>
               <button onClick={handleProfileClick}>Profile</button>
-              <button onClick={handleArticleClick}>New Article</button>
+                          <button onClick={handleArticleClick}>New Article</button>
+                          <button onClick={handleUsersClick}>Users</button>
             </nav>
           ) : null}
         </div>
