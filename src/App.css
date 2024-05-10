@@ -41,7 +41,7 @@ textarea {
 .light-card,
 .light-button button,
 .light input,
-.light textarea{
+.light textarea {
   background-color: rgb(246, 235, 221);
   color: rgb(53, 48, 48);
   box-shadow: 0 0 3px 3px rgb(229, 215, 194);
@@ -54,12 +54,11 @@ textarea {
 
 .dark-card,
 .dark-button button,
-.dark input ,
-.dark textarea{
+.dark input,
+.dark textarea {
   color: rgb(246, 235, 221);
   background-color: rgb(30, 23, 23);
   box-shadow: 0 0 3px 3px rgb(87, 80, 80);
-
 }
 
 .dark-card:hover,
@@ -123,6 +122,12 @@ a {
   font-size: 2em;
 }
 
+#articles-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 #styled-article-card li {
   display: flex;
   flex-direction: column;
@@ -131,6 +136,17 @@ a {
   padding: 3vw;
   margin: 5vh 3vw;
   border-radius: 20px;
+  width: 80vw;
+}
+
+@media screen and (min-width: 600px) {
+  #styled-article-card li{
+    width: 400px;
+  }
+}
+
+#styled-article-card img {
+  align-self: center;
 }
 
 #styled-article-page {
@@ -157,7 +173,7 @@ a {
 #styled-button button {
   border: none;
   height: 30px;
-  padding:  5px 10px;
+  padding: 5px 10px;
   margin-top: 15px;
   margin-bottom: 15px;
   border-radius: 5px;
