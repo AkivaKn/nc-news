@@ -4,7 +4,6 @@ import StyledButton from "../styling-components/StyledButton";
 import StyledVotes from "../styling-components/StyledVotes";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
-import { useNavigate } from "react-router-dom";
 
 export default function CommentCard({ comment }) {
   const [commentVoteChange, setCommentVoteChange] = useState(0);
@@ -16,7 +15,6 @@ export default function CommentCard({ comment }) {
   const [commentToPost, setCommentToPost] = useState(comment);
   const { user } = useContext(UserContext);
   const [articleId, setArticleId] = useState(comment.article_id);
-  const navigate = useNavigate();
 
   const currentTime = Date.now();
   const createdDate = new Date(comment.created_at);
@@ -38,7 +36,7 @@ export default function CommentCard({ comment }) {
 
   const handleVote = (vote) => {
     if (!user || !user.username) {
-      navigate("/login");
+      setIsDialogOpen(true)
     } else {
       setCommentVoteChange((currentVote) => {
         return currentVote + vote;

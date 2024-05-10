@@ -232,4 +232,35 @@ border-radius: 20px;
   flex-direction: column;
 }
 
+#styled-login-dialog{
+  position: absolute;
+  width: 60%;
+  height: 50%;
+  background-color: rgb(53, 48, 48);
+color: rgb(246, 240, 232);
+border-radius: 15px;
+top: 25%;
+right: 20%;
+display: flex;
+align-items: center;  
+justify-content: center;
+}
 
+.login-form{
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input{
+  margin: 10px ;
+}
+
+.close-button{
+  background-color: rgb(53, 48, 48);
+border: none;
+color: rgb(246, 240, 232);
+position: absolute;
+top: 2%;
+right: 2%;
+font-size: 2em;
+}

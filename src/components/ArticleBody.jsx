@@ -4,17 +4,16 @@ import StyledVotes from "../styling-components/StyledVotes";
 import StyledButton from "../styling-components/StyledButton";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
-import { useNavigate } from "react-router-dom";
 
 export default function ArticleBody({
   currentArticle,
   setShowComments,
   showComments,
+  setIsDialogOpen
 }) {
   const [articleVoteChange, setArticleVoteChange] = useState(0);
   const [isArticlePatchError, setIsArticlePatchError] = useState(false);
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
 
   const handleClick = () => {
     setShowComments(!showComments);
@@ -22,7 +21,7 @@ export default function ArticleBody({
 
   const handleVote = (vote) => {
     if (!user || !user.username) {
-      navigate("/login");
+      setIsDialogOpen(true)
     } else {
       setArticleVoteChange((currentVote) => {
         return currentVote + vote;

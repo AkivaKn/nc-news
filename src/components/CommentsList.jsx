@@ -6,11 +6,11 @@ import StyledButton from "../styling-components/StyledButton";
 import StyledComment from "../styling-components/StyledComment";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
-import { useNavigate } from "react-router-dom";
 
 
 
-export default function CommentsList({article_id}) {
+
+export default function CommentsList({article_id,setIsDialogOpen}) {
   const [comments, setComments] = useState([]);
   const [showPostComment, setShowPostComment] = useState(false);
   const [commentInput, setCommentInput] = useState("");
@@ -22,14 +22,14 @@ export default function CommentsList({article_id}) {
   const [nextPageIndex, setNextPageIndex] = useState(2);
   const [isPosting, setIsPosting] = useState(false);
   const { user} = useContext(UserContext);
-  const navigate = useNavigate();
+
 
 
   const handleClick = () => {
-    if (user) {
+    if (user && user.username) {
       setShowPostComment(!showPostComment);
     } else {
-      navigate('/login')
+      setIsDialogOpen(true)
     }
   };
   const handleSubmit = (e) => {
@@ -83,7 +83,7 @@ export default function CommentsList({article_id}) {
       .catch(() => {
         setIsGetError(true);
       });
-  }, [isPostError]);
+  }, []);
 
   const fetchMoreComments = () => {
     setIsLoading(true)
@@ -127,7 +127,7 @@ export default function CommentsList({article_id}) {
     >
       <ul id="comments-list">
         {comments.map((comment) => {
-          return <StyledComment key={comment.comment_id}><CommentCard comment={comment} /></StyledComment>;
+          return <StyledComment key={comment.comment_id}><CommentCard comment={comment} setIsDialogOpen={setIsDialogOpen} /></StyledComment>;
         })}
         {isGetError ? <p>That didn't work. Please try again.</p> : null}
         </ul>
